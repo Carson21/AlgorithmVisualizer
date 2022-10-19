@@ -1,5 +1,8 @@
 package self.carson.sortingalgos;
 
-public class AbstractSort {
-    
+import java.util.ArrayList;
+
+public abstract class AbstractSort {
+    public abstract void sort(ArrayList<Integer> nodes);
+
 }

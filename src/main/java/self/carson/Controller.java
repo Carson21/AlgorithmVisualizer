@@ -36,6 +36,7 @@ public class Controller extends BorderPane {
         this.canvas = new Canvas(C_WIDTH, C_HEIGHT);
         this.ctx = this.canvas.getGraphicsContext2D();
         this.buttons = new VBox();
+        this.cControl = new CanvasController(ctx);
 
         buttons.setPrefWidth(280);
         buttons.setPadding(new Insets(20, 20, 20, 20));
@@ -53,11 +54,7 @@ public class Controller extends BorderPane {
         this.cBox = new ChoiceBox<>();
 
         List<AbstractSort> sortList = new ArrayList<>();
-        sortList.add(new SelectionSort());
-        sortList.add(new BubbleSort());
-        sortList.add(new CocktailShakerSort());
-        sortList.add(new MergeSort());
-        sortList.add(new QuickSort());
+        sortList.add(new SelectionSort(cControl));
 
         cBox.setItems(FXCollections.observableArrayList(sortList));
 
@@ -67,11 +64,15 @@ public class Controller extends BorderPane {
 
         cBox.getSelectionModel().select(0);
 
-        this.cControl = new CanvasController(ctx);
+
 
         randomizeButton.setOnAction(event -> {
             cControl.shuffleNodes();
             cControl.renderNodes();
+        });
+
+        sortButton.setOnAction(event -> {
+            cBox.getValue().sort(cControl.getNodes());
         });
 
         cBox.setConverter(new StringConverter<>() {

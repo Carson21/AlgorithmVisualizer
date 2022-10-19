@@ -14,14 +14,17 @@ public class CanvasController {
     public static final int WIDTH_OF_NODE = (Controller.C_WIDTH - (NO_OF_NODES * 2)) / NO_OF_NODES;
 
 
-    private final ArrayList<Integer> nodes = new ArrayList<Integer>();
+    private final ArrayList<Integer> nodes = new ArrayList<>();
     private final GraphicsContext ctx;
-
 
     public CanvasController(GraphicsContext ctx) {
         this.ctx = ctx;
         shuffleNodes();
         renderNodes();
+    }
+
+    public ArrayList<Integer> getNodes() {
+        return nodes;
     }
 
     public void shuffleNodes() {
