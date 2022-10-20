@@ -55,6 +55,8 @@ public class Controller extends BorderPane {
 
         List<AbstractSort> sortList = new ArrayList<>();
         sortList.add(new SelectionSort(cControl, randomizeButton));
+        sortList.add(new CocktailShakerSort(cControl, randomizeButton));
+        sortList.add(new BubbleSort(cControl, randomizeButton));
 
         cBox.setItems(FXCollections.observableArrayList(sortList));
 
