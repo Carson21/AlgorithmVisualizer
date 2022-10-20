@@ -54,7 +54,7 @@ public class Controller extends BorderPane {
         this.cBox = new ChoiceBox<>();
 
         List<AbstractSort> sortList = new ArrayList<>();
-        sortList.add(new SelectionSort(cControl));
+        sortList.add(new SelectionSort(cControl, randomizeButton));
 
         cBox.setItems(FXCollections.observableArrayList(sortList));
 
@@ -67,11 +67,16 @@ public class Controller extends BorderPane {
 
 
         randomizeButton.setOnAction(event -> {
+            sortButton.setDisable(false);
+
             cControl.shuffleNodes();
             cControl.renderNodes();
         });
 
         sortButton.setOnAction(event -> {
+            sortButton.setDisable(true);
+            randomizeButton.setDisable(true);
+
             cBox.getValue().sort(cControl.getNodes());
         });
 

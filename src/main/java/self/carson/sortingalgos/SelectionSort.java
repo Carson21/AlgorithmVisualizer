@@ -1,42 +1,66 @@
 package self.carson.sortingalgos;
 
-
+import javafx.animation.AnimationTimer;
+import javafx.scene.control.Button;
 import self.carson.CanvasController;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class SelectionSort extends AbstractSort {
 
     private final CanvasController cControl;
+    private final Button randomizeButton;
+    private long startTime = 0;
+    private final int animSpeed = 250;
+    private int animFrame = 0;
+    private final ArrayList<ArrayList<Integer>> animSortFrames = new ArrayList<>();
 
-    public SelectionSort(CanvasController cControl) {
-
+    public SelectionSort(CanvasController cControl, Button randomizeButton) {
         this.cControl = cControl;
+        this.randomizeButton = randomizeButton;
     }
 
     @Override
     public void sort(ArrayList<Integer> nodes) {
-        Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
-        selectionSort(nodes, comparator);
+        selectionSort(nodes);
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                int delta = (int) ((now - startTime) / 1000000);
+                if (delta > animSpeed) {
+                    try {
+                        showCurFrame(animFrame);
+                        animFrame++;
+                        startTime = now;
+                    } catch (IndexOutOfBoundsException e) {
+                        randomizeButton.setDisable(false);
+                        this.stop();
+                    }
+                }
+            }
+        };
+        timer.start();
     }
 
-    private <T> void selectionSort(ArrayList<T> arr, Comparator<T> comparator) {
-        if (arr == null || comparator == null) {
-            throw new IllegalArgumentException("Array and comparator cannot be null");
-        }
+    @Override
+    protected void showCurFrame(int i) throws IndexOutOfBoundsException {
+        cControl.renderNodes(animSortFrames.get(i));
+    }
 
+
+    private void selectionSort(ArrayList<Integer> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
             int j = 0;
             for (int k = 1; k <= i; k++) {
-                if (comparator.compare(arr.get(k), arr.get(j)) > 0) {
+                if (arr.get(k) > arr.get(j)) {
                     j = k;
                 }
             }
-            T temp = arr.get(i);
+            int temp = arr.get(i);
             arr.set(i, arr.get(j));
             arr.set(j, temp);
 
-            cControl.renderNodes();
+            animSortFrames.add(new ArrayList<>(arr));
         }
     }
 }

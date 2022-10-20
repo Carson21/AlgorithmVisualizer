@@ -47,5 +47,16 @@ public class CanvasController {
         }
     }
 
+    public void renderNodes(ArrayList<Integer> arr) {
+        ctx.clearRect(0, 0, Controller.C_WIDTH, Controller.C_HEIGHT);
+        ctx.setFill(Color.DARKGRAY);
+        ctx.fillRect(0, 0, Controller.C_WIDTH, Controller.C_HEIGHT);
+
+        for (int i = 0; i < NO_OF_NODES; i++) {
+            ctx.setFill(Color.RED);
+            ctx.fillRect((i * (WIDTH_OF_NODE + SPACING_OF_NODES)) + 1, 720 - arr.get(i) * 10, WIDTH_OF_NODE, arr.get(i) * 10);
+        }
+    }
+
 
 }
