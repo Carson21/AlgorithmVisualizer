@@ -1,5 +1,6 @@
 # AlgorithmVisualizer
-A simple sorting algorithm visualizer made with JavaFX
+A simple sorting algorithm visualizer made with JavaFX.
+This program only visualizes the outer loop of a few sorting algorithms and does not color the indices used in each algorithm.
 
 In order to run the program:
   1. Install Java 11
