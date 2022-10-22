@@ -1,5 +1,5 @@
 # AlgorithmVisualizer
-A Sorting Algorithm Visualizer made with JavaFX
+A simple sorting algorithm visualizer made with JavaFX
 
 In order to run the program:
   1. Install Java 11
